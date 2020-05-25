@@ -31,10 +31,10 @@ function generatePassword() {
       }
     },
     askRequirements: function () {
-      this.lowercase = confirm("Require lowercase?");
-      this.uppercase = confirm("Require uppercase?");
+      this.lowercase = confirm("Require lower case characters?");
+      this.uppercase = confirm("Require upper case characters?");
       this.numbers = confirm("Require numbers?");
-      this.specialChar = confirm("Require specialChar?");
+      this.specialChar = confirm("Require special characters?");
     }
   }
 
