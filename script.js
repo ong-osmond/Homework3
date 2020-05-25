@@ -65,8 +65,9 @@ function generatePassword() {
     }
   }
 
-  //Begin Main function
-
+  //Begin Main function//
+  
+  //Ask password length
   requirements.askPasswordLength();
   while (requirements.passwordLength < requirements.minPasswordLength ||
     requirements.passwordLength > requirements.maxPasswordLength
@@ -74,7 +75,7 @@ function generatePassword() {
     alert("Choose from " + requirements.minPasswordLength + " to " + requirements.maxPasswordLength + " characters.");
     requirements.askPasswordLength();
   }
-
+  //Ask required character types
   requirements.askRequirements();
   while (requirements.lowercase == false &&
     requirements.uppercase == false &&
@@ -88,24 +89,22 @@ function generatePassword() {
   //Generate minimum required characters
   if (requirements.lowercase == true) {
     getCharacters.getLowerCase();
-    getCharacters.randomChar.push("getLowerCase()");
+    getCharacters.randomChar.push("getLowerCase()"); //Add required character as an option in the randomChar array
   }
   if (requirements.uppercase == true) {
     getCharacters.getUpperCase();
-    getCharacters.randomChar.push("getUpperCase()");
+    getCharacters.randomChar.push("getUpperCase()"); //Add required character as an option in the randomChar array
   }
   if (requirements.numbers == true) {
     getCharacters.getRandomInt();
-    getCharacters.randomChar.push("getRandomInt()");
+    getCharacters.randomChar.push("getRandomInt()"); //Add required character as an option in the randomChar array
   }
   if (requirements.specialChar == true) {
     getCharacters.getSpecialChars();
-    getCharacters.randomChar.push("getSpecialChars()");
+    getCharacters.randomChar.push("getSpecialChars()"); //Add required character as an option in the randomChar array
   }
-  //Minimum required characters
   console.log(getCharacters.generatedPassword);
   //console.log("Remaining chars to fill in: " + (requirements.passwordLength - getCharacters.generatedPassword.length));
-
 
   //Fill in the rest of the password
   for (var p = getCharacters.generatedPassword.length;
@@ -120,15 +119,17 @@ function generatePassword() {
       getCharacters.getRandomInt();
     } else getCharacters.getSpecialChars();
   }
-
   //Initial Generated Password
   console.log(getCharacters.generatedPassword);
 
-  //GeneratedPassword must be shuffled to randomise value
-  function scramble(a) { a = a.split(""); for (var b = a.length - 1; 0 < b; b--) { var c = Math.floor(Math.random() * (b + 1)); d = a[b]; a[b] = a[c]; a[c] = d } return a.join("") }
+  //Generated Password must be shuffled to randomise value
+  function scramble(a) { 
+    a = a.split(""); 
+    for (var b = a.length - 1; 0 < b; b--) {
+      var c = Math.floor(Math.random() * (b + 1)); d = a[b]; a[b] = a[c]; a[c] = d 
+    } 
+    return a.join("") }
 
   //Final Password
-  console.log(scramble(getCharacters.generatedPassword));
-
   return (scramble(getCharacters.generatedPassword));
 }
