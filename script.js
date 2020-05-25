@@ -13,6 +13,7 @@ function writePassword() {
 }
 
 function generatePassword() {
+  
   //Requirements object
   var requirements = {
     passwordLength: 0,
@@ -96,21 +97,21 @@ function generatePassword() {
   }
 
   //Generate minimum required characters
-  if (requirements.lowercase == true) {
+  if (requirements.lowercase) {
     getCharacters.getLowerCase();
-    getCharacters.randomChar.push("getLowerCase()"); //Add required character as an option in the randomChar array
+    getCharacters.randomChar.push("getLowerCase()"); //Add required character type as an option in the randomChar array
   }
-  if (requirements.uppercase == true) {
+  if (requirements.uppercase) {
     getCharacters.getUpperCase();
-    getCharacters.randomChar.push("getUpperCase()"); //Add required character as an option in the randomChar array
+    getCharacters.randomChar.push("getUpperCase()"); //Add required character type as an option in the randomChar array
   }
-  if (requirements.numbers == true) {
+  if (requirements.numbers) {
     getCharacters.getRandomInt();
-    getCharacters.randomChar.push("getRandomInt()"); //Add required character as an option in the randomChar array
+    getCharacters.randomChar.push("getRandomInt()"); //Add required character type as an option in the randomChar array
   }
-  if (requirements.specialChar == true) {
+  if (requirements.specialChar) {
     getCharacters.getSpecialChars();
-    getCharacters.randomChar.push("getSpecialChars()"); //Add required character as an option in the randomChar array
+    getCharacters.randomChar.push("getSpecialChars()"); //Add required character type as an option in the randomChar array
   }
   console.log(getCharacters.generatedPassword);
   //console.log("Remaining chars to fill in: " + (requirements.passwordLength - getCharacters.generatedPassword.length));
