@@ -24,8 +24,17 @@ function generatePassword() {
     specialChar: false,
     askPasswordLength: function () {
       var passwordLength = (prompt("How long must the password be? (Choose from " + this.minPasswordLength + " to " + this.maxPasswordLength + " characters.)"));
-      this.passwordLength = passwordLength.replace(/\D/g, "");
-      if (this.passwordLength == isNaN) {
+      //Check if number entered is a whole number
+      if (passwordLength % 1 != 0) {
+        this.passwordLength = 0;
+        alert("Invalid password length.");
+      }
+      else
+        //Get the number value entered
+        this.passwordLength = passwordLength.replace(/\D/g, "");
+      //Check if value is not a number
+      if (this.passwordLength == isNaN
+      ) {
         this.passwordLength = 0;
         alert("Invalid password length.");
       }
@@ -66,7 +75,7 @@ function generatePassword() {
   }
 
   //Begin Main function//
-  
+
   //Ask password length
   requirements.askPasswordLength();
   while (requirements.passwordLength < requirements.minPasswordLength ||
@@ -123,12 +132,13 @@ function generatePassword() {
   console.log(getCharacters.generatedPassword);
 
   //Generated Password must be shuffled to randomise value
-  function scramble(a) { 
-    a = a.split(""); 
+  function scramble(a) {
+    a = a.split("");
     for (var b = a.length - 1; 0 < b; b--) {
-      var c = Math.floor(Math.random() * (b + 1)); d = a[b]; a[b] = a[c]; a[c] = d 
-    } 
-    return a.join("") }
+      var c = Math.floor(Math.random() * (b + 1)); d = a[b]; a[b] = a[c]; a[c] = d
+    }
+    return a.join("")
+  }
 
   //Final Password
   return (scramble(getCharacters.generatedPassword));
