@@ -13,14 +13,14 @@ function writePassword() {
 }
 
 function generatePassword() {
-  
+
   //Requirements object
-  var requirements = {
+  var Requirements = {
     passwordLength: 0,
-    minPasswordLength: 8,
-    maxPasswordLength: 128,
-    lowercase: false,
-    uppercase: false,
+    minPasswordLength: 8, //Sets the minimum password length to a configurable value
+    maxPasswordLength: 128, //Sets the maximum password length to a configurable value
+    lowerCase: false,
+    upperCase: false,
     numbers: false,
     specialChar: false,
     askPasswordLength: function () {
@@ -41,98 +41,77 @@ function generatePassword() {
       }
     },
     askRequirements: function () {
-      this.lowercase = confirm("Require lower case characters? \n(OK for Yes, Cancel for No.)");
-      this.uppercase = confirm("Require upper case characters? \n(OK for Yes, Cancel for No.)");
+      this.lowerCase = confirm("Require lower case characters? \n(OK for Yes, Cancel for No.)");
+      this.upperCase = confirm("Require upper case characters? \n(OK for Yes, Cancel for No.)");
       this.numbers = confirm("Require numbers? \n(OK for Yes, Cancel for No.)");
       this.specialChar = confirm("Require special characters? \n(OK for Yes, Cancel for No.)");
     }
   }
 
   //Password Generator object
-  var getCharacters = {
-    specialChars: ["!", "#", "$", "%", "&", "'", "(", ")", "*", "+", "-", ".", "/", ":", ";", "<", "=", ">",
+  var Password = {
+    lowerCaseSet: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"],
+    upperCaseSet: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"],
+    numberSet: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    specialCharSet: ["!", "#", "$", "%", "&", "'", "(", ")", "*", "+", "-", ".", "/", ":", ";", "<", "=", ">",
       "?", "@", "[", "]", "^", "_", "{", "|", "}", "~"],
-    alphabet: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"],
-    randomChar: [],
-    generatedPassword: "",
-    getLowerCase: function () {
-      var newLowerCase = this.alphabet[Math.floor(Math.random() * this.alphabet.length)].toLowerCase();
-      this.generatedPassword = this.generatedPassword + newLowerCase;
-    },
-    getUpperCase: function () {
-      var newUpperCase = this.alphabet[Math.floor(Math.random() * this.alphabet.length)].toUpperCase();
-      this.generatedPassword = this.generatedPassword + newUpperCase;
-    },
-    getRandomInt: function () {
-      min = Math.ceil(0);
-      max = Math.floor(9);
-      var newNumber = Math.floor(Math.random() * (9 - 0 + 1)) + min;
-      this.generatedPassword = this.generatedPassword + newNumber.toString();
-    },
-    getSpecialChars: function () {
-      var newSpecialChar = this.specialChars[Math.floor(Math.random() * this.specialChars.length)];
-      this.generatedPassword = this.generatedPassword + newSpecialChar;
-    }
+    possibleCharacters: [], //Builds the list of characters to randomly choose from
+    generatedPassword: "", //The actual password to be generated
   }
+
 
   //Begin Main function//
 
   //Ask password length
-  requirements.askPasswordLength();
-  while (requirements.passwordLength < requirements.minPasswordLength ||
-    requirements.passwordLength > requirements.maxPasswordLength
+  Requirements.askPasswordLength();
+  while (Requirements.passwordLength < Requirements.minPasswordLength ||
+    Requirements.passwordLength > Requirements.maxPasswordLength
   ) {
-    alert("Choose from " + requirements.minPasswordLength + " to " + requirements.maxPasswordLength + " characters.");
-    requirements.askPasswordLength();
+    alert("Choose from " + Requirements.minPasswordLength + " to " + Requirements.maxPasswordLength + " characters.");
+    Requirements.askPasswordLength();
   }
   //Ask required character types
-  requirements.askRequirements();
-  while (requirements.lowercase == false &&
-    requirements.uppercase == false &&
-    requirements.numbers == false &&
-    requirements.specialChar == false
+  Requirements.askRequirements();
+  while (!Requirements.lowerCase &&
+    !Requirements.upperCase &&
+    !Requirements.numbers &&
+    !Requirements.specialChar
   ) {
     alert("At least one character type must be selected!");
-    requirements.askRequirements();
+    Requirements.askRequirements();
   }
 
-  //Generate minimum required characters
-  if (requirements.lowercase) {
-    getCharacters.getLowerCase();
-    getCharacters.randomChar.push("getLowerCase()"); //Add required character type as an option in the randomChar array
+  //Generate minimum required characters (if we create the possibleCharacters array before this step, it's possible the for loop may never randomly pick the required character type/s)
+  if (Requirements.lowerCase) {
+    Password.generatedPassword = Password.generatedPassword + Password.lowerCaseSet[Math.floor(Math.random() * Password.lowerCaseSet.length)];
+    Password.possibleCharacters = Password.possibleCharacters.concat(Password.lowerCaseSet);
   }
-  if (requirements.uppercase) {
-    getCharacters.getUpperCase();
-    getCharacters.randomChar.push("getUpperCase()"); //Add required character type as an option in the randomChar array
+  if (Requirements.upperCase) {
+    Password.generatedPassword = Password.generatedPassword + Password.upperCaseSet[Math.floor(Math.random() * Password.upperCaseSet.length)];
+    Password.possibleCharacters = Password.possibleCharacters.concat(Password.upperCaseSet);
   }
-  if (requirements.numbers) {
-    getCharacters.getRandomInt();
-    getCharacters.randomChar.push("getRandomInt()"); //Add required character type as an option in the randomChar array
+  if (Requirements.numbers) {
+    Password.generatedPassword = Password.generatedPassword + Password.numberSet[Math.floor(Math.random() * Password.numberSet.length)];
+    Password.possibleCharacters = Password.possibleCharacters.concat(Password.numberSet);
   }
-  if (requirements.specialChar) {
-    getCharacters.getSpecialChars();
-    getCharacters.randomChar.push("getSpecialChars()"); //Add required character type as an option in the randomChar array
+  if (Requirements.specialChar) {
+    Password.generatedPassword = Password.generatedPassword + Password.specialCharSet[Math.floor(Math.random() * Password.specialCharSet.length)];
+    Password.possibleCharacters = Password.possibleCharacters.concat(Password.specialCharSet);
   }
-  console.log(getCharacters.generatedPassword);
-  //console.log("Remaining chars to fill in: " + (requirements.passwordLength - getCharacters.generatedPassword.length));
+  console.log(Password.generatedPassword);
+  //console.log("Remaining chars to fill in: " + (Requirements.passwordLength - Password.generatedPassword.length));
 
   //Fill in the rest of the password
-  for (var p = getCharacters.generatedPassword.length;
-    p < requirements.passwordLength;
+  for (var p = Password.generatedPassword.length;
+    p < Requirements.passwordLength;
     p++) {
-    var randomChar = getCharacters.randomChar[Math.floor(Math.random() * getCharacters.randomChar.length)];
-    if (randomChar == "getLowerCase()") {
-      getCharacters.getLowerCase();
-    } else if (randomChar == "getUpperCase()") {
-      getCharacters.getUpperCase();
-    } else if (randomChar == "getRandomInt()") {
-      getCharacters.getRandomInt();
-    } else getCharacters.getSpecialChars();
+    Password.generatedPassword = Password.generatedPassword
+      + Password.possibleCharacters[Math.floor(Math.random() * Password.possibleCharacters.length)];
   }
   //Initial Generated Password
-  console.log(getCharacters.generatedPassword);
+  console.log(Password.generatedPassword);
 
-  //Generated Password must be shuffled to randomise value
+  //Generated Password must be shuffled to randomise value (we don't want the the password to begin in the order of the required character types)
   function scramble(a) {
     a = a.split("");
     for (var b = a.length - 1; 0 < b; b--) {
@@ -142,5 +121,5 @@ function generatePassword() {
   }
 
   //Final Password
-  return (scramble(getCharacters.generatedPassword));
+  return (scramble(Password.generatedPassword));
 }
