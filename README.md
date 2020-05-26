@@ -1,4 +1,5 @@
-Welcome to my Password Generator App
+Welcome to my Password Generator App.
+
 You can find the application here: https://ong-osmond.github.io/Osmond-s-Password-Generator/
 
 Features:
