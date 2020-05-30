@@ -10,7 +10,6 @@ Click on the "Generate Password" button to start the application.
 1. Generate a password from 8 to 128 characters in length. The app validates the required password length is valid.
 
 ![Password Length](/assets/images/02-Password%20Length.png)
-(assets/02-Password Length.png)
 
 2. Select from the following chacter types to include in the password: lower case characters, upper case characters, numbers and/or special characters. At least one character type must be selected.
 
