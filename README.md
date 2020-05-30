@@ -2,7 +2,7 @@ Welcome to my Password Generator App.
 
 You can find the application here: https://ong-osmond.github.io/Osmond-s-Password-Generator/
 
-https://github.com/ong-osmond/Osmond-s-Password-Generator/blob/master/assets/images/01-Application%20Page%20on%20first%20visit.png
+(/assets/images/index.screenshot.png)
 
 Features:
 
