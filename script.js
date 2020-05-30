@@ -6,23 +6,24 @@ generateBtn.addEventListener("click", writePassword);
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
-  alert("Password generated! \n" + password);
-  var passwordText = document.querySelector("#password");
-  passwordText.value = password;
+  var password = generatePassword(); //The generatePassword function must return a value 
+  alert("Password generated! \n" + password); //Alert the password that was generated
+  var passwordText = document.querySelector("#password"); //Look for the password ID in the DOM
+  passwordText.value = password; //Assign our generated password to that text
 }
 
+// The heart of this application
 function generatePassword() {
 
   //Requirements object
   var Requirements = {
-    passwordLength: 0,
+    passwordLength: 0, //Defaults passwordLength to zero
     minPasswordLength: 8, //Sets the minimum password length to a configurable value
     maxPasswordLength: 128, //Sets the maximum password length to a configurable value
-    lowerCase: false,
-    upperCase: false,
-    numbers: false,
-    specialChar: false,
+    lowerCase: false, //Defaults character types to false
+    upperCase: false, //Defaults character types to false
+    numbers: false, //Defaults character types to false
+    specialChar: false, //Defaults character types to false
     askPasswordLength: function () {
       var passwordLength = (prompt("How long must the password be? (Choose from " + this.minPasswordLength + " to " + this.maxPasswordLength + " characters.)"));
       //Check if number entered is a whole number
@@ -81,7 +82,7 @@ function generatePassword() {
     Requirements.askRequirements();
   }
 
-  //Generate minimum required characters (if we create the possibleCharacters array before this step, it's possible the for loop may never randomly pick the required character type/s)
+  //Generate minimum required characters (if we create the possibleCharacters array before this step, it's possible the "for loop" may never randomly pick the required character type/s)
   if (Requirements.lowerCase) {
     Password.generatedPassword = Password.generatedPassword + Password.lowerCaseSet[Math.floor(Math.random() * Password.lowerCaseSet.length)];
     Password.possibleCharacters = Password.possibleCharacters.concat(Password.lowerCaseSet);
@@ -111,7 +112,7 @@ function generatePassword() {
   //Initial Generated Password
   console.log(Password.generatedPassword);
 
-  //Generated Password must be shuffled to randomise value (we don't want the the password to begin in the order of the required character types)
+  //Generated Password must be shuffled to randomise value (we don't want the the password to always begin in the order of the required character types - see lines 85 to 103)
   function scramble(a) {
     a = a.split("");
     for (var b = a.length - 1; 0 < b; b--) {
